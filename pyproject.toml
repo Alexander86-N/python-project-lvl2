@@ -7,6 +7,9 @@ authors = ["Aleksandr <nastyavin86@br.ru>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 
+[tool.poetry.scripts]
+gendiff = 'gendiff.scripts.gendiff:print_h'
+
 [tool.poetry.dev-dependencies]
 
 [build-system]
