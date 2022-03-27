@@ -1,8 +1,8 @@
 install:
 	poetry install
 
-gendiff -h:
-	poetry run gendiff -h
+gendiff:
+	poetry run gendiff
 
 build:
 	poetry build
