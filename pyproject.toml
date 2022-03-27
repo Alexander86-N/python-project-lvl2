@@ -12,7 +12,7 @@ python = "^3.8"
 pytest = "^7.1.1"
 
 [tool.poetry.scripts]
-gendiff = 'gendiff.scripts.gendiff:print_h'
+gendiff = 'gendiff.scripts.gendiff:generate_diff'
 
 [tool.poetry.dev-dependencies]
 
