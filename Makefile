@@ -1,6 +1,9 @@
 install:
 	poetry install
 
+test:
+	poetry run pytest
+
 gendiff:
 	poetry run gendiff
 
