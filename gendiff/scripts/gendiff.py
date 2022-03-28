@@ -28,21 +28,22 @@ def element_research(file_one, file_two):
     return result
 
 
-def convert_to_string(items, symbol):
+def convert_to_string(items, symbol, indent=' '):
     item1, item2 = items
-    key = ' ' + symbol + item1.rstrip('"') if isinstance(item1, str) else f'{symbol}{item1}'
+    key = symbol + indent + item1.rstrip('"') if isinstance(item1, str) else f'{symbol}{indent}{item1}'
     value = item2.rstrip('"') if isinstance(item2, str) else\
             str(item2).lower() if isinstance(item2, bool) else item2
-    return f'{key}: {value}'
+    return f'{indent * 2}{key}: {value}'
         
-
-parser = argparse.ArgumentParser(prog='gendiff', description='Generate diff')
-parser.add_argument('first_file')
-parser.add_argument('second_file')
-parser.add_argument('-f FORMAT', '--format FORMAT', dest='', help='set format of output')
-args = parser.parse_args()
-print(generate_diff(args.first_file, args.second_file))
+ 
+def main():
+    parser = argparse.ArgumentParser(prog='gendiff', description='Generate diff')
+    parser.add_argument('first_file')
+    parser.add_argument('second_file')
+    parser.add_argument('-f FORMAT', '--format FORMAT', dest='', help='set format of output')
+    args = parser.parse_args()
+    print(generate_diff(args.first_file, args.second_file))
 
 
 if __name__ == '__main__':
-    generate_diff()
+    main()
