@@ -11,6 +11,7 @@ packages = [
 python = "^3.8"
 pytest = "^7.1.1"
 tomli = "1.2.3"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 gendiff = 'gendiff.scripts.gendiff:main'
