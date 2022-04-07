@@ -1,13 +1,14 @@
 import json
 import yaml
-from gendiff import engine
+from gendiff import stylish
+from gendiff.engine import diff
 
 
 def generate_diff(file_path1, file_path2):
     file1 = determine_file_format(file_path1)
     file2 = determine_file_format(file_path2)
-    result = engine.converting(file1, file2)
-    return '\n'.join(result)
+    result = diff.diff(file1, file2)
+    return stylish.stylish(result)
 
 
 def determine_file_format(file_path):
