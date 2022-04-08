@@ -1,10 +1,5 @@
 def diff(dirictory1, dirictory2):
-    """
-    Combines dictionaries and determines the statuses of all keys.
-        :param dirictory1: dict
-        :param dirictory2: dict
-        :return: list
-    """
+    """ Combines dictionaries and determines the statuses of all keys. """
     result = []
     keys = sorted(dirictory1.keys() | dirictory2.keys())
     for key in keys:
@@ -28,4 +23,3 @@ def diff(dirictory1, dirictory2):
             node['value after'] = dirictory2[key]
         result.append(node)
     return result
-
