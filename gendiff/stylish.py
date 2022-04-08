@@ -1,9 +1,4 @@
-SYMBOLS = {
-        "added": "+ ",
-        "available": "- ",
-        "parent": "  ",
-        "same": "  "
-        }
+SYMBOLS = {"added": "+ ", "available": "- ", "parent": "  ", "same": "  "}
 
 
 def stylish(diff_list, depth=0, indent='  '):
@@ -38,5 +33,5 @@ def format_data(data, indent):
         result += indent[:-2] + '}'
     else:
         result = str(data).lower() if isinstance(data, bool) else\
-                'null' if isinstance(data, type(None)) else str(data)
+            'null' if isinstance(data, type(None)) else str(data)
     return result
