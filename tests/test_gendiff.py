@@ -23,12 +23,12 @@ def test_generate_diff():
     assert generate_diff.generate_diff(test_file5, test_file6) == result2[:-1]
     assert generate_diff.generate_diff(test_file7, test_file8) == result2[:-1]
     assert generate_diff.generate_diff(test_file5, test_file8) == result2[:-1]
-    assert generate_diff.generate_diff(test_file5, test_file6) == result3[:-1]
-    assert generate_diff.generate_diff(test_file7, test_file8) == result3[:-1]
-    assert generate_diff.generate_diff(test_file5, test_file8) == result3[:-1]
+    assert generate_diff.generate_diff(test_file5, test_file6, 'plain') == result3[:-1]
+    assert generate_diff.generate_diff(test_file7, test_file8, 'plain') == result3[:-1]
+    assert generate_diff.generate_diff(test_file5, test_file8, 'plain') == result3[:-1]
 
 
 def test_determine_file_format():
     assert generate_diff.determine_file_format(test_file1) == json.load(open(test_file1))
+    assert generate_diff.determine_file_format(test_file3) == yaml.safe_load(open(test_file3))
     assert generate_diff.determine_file_format(test_file4) == yaml.safe_load(open(test_file4))
-    assert generate_diff.determine_file_format(test_file5) == yaml.safe_load(open(test_file5))
