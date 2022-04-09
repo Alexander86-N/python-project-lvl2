@@ -8,3 +8,5 @@
 [![asciicast](https://asciinema.org/a/mZJa8MxieJ6E8mgi54LXa4LlV.svg)](https://asciinema.org/a/mZJa8MxieJ6E8mgi54LXa4LlV)
 #### YAML file
 [![asciicast](https://asciinema.org/a/JWNV57njEjgPbDyvO3tp6ZD8c.svg)](https://asciinema.org/a/JWNV57njEjgPbDyvO3tp6ZD8c)
+### formatter: stylish
+[![asciicast](https://asciinema.org/a/kmGN3JGM0CYn4DG6cspQDbDJc.svg)](https://asciinema.org/a/kmGN3JGM0CYn4DG6cspQDbDJc)
