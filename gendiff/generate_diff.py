@@ -1,15 +1,15 @@
 import json
 import yaml
-from gendiff import stylish
 from gendiff.engine import diff
+from gendiff.formatter.define_formatter import define_formatter
 
 
-def generate_diff(file_path1, file_path2):
+def generate_diff(file_path1, file_path2, view='stylish'):
     """ Collects and outputs diff. """
     file1 = determine_file_format(file_path1)
     file2 = determine_file_format(file_path2)
     result = diff.diff(file1, file2)
-    return stylish.stylish(result)
+    return define_formatter(result, view)
 
 
 def determine_file_format(file_path):
