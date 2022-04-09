@@ -1,4 +1,4 @@
-from gendiff import stylish
+from gendiff.formatter import stylish
 
 
 test_case1 = [{'name': 'one', 'status': 'added', 'value': False}]
