@@ -20,6 +20,8 @@ def test_generate_diff():
     assert generate_diff.generate_diff(test_file1, test_file2) == result1[:-1]
     assert generate_diff.generate_diff(test_file4, test_file5) == result1[:-1]
     assert generate_diff.generate_diff(test_file6, test_file7) == result3[:-1]
+    assert generate_diff.generate_diff(test_file8, test_file9) == result3[:-1]
+    assert generate_diff.generate_diff(test_file6, test_file9) == result3[:-1]
 
 
 def test_determine_file_format():
