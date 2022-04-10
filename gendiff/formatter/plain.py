@@ -1,4 +1,4 @@
-from gendiff.engine.view_change import view_change
+from gendiff.engine.change_view import view_change
 
 
 def plain(diff_list, path=''):
