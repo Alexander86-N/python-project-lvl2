@@ -1,3 +1,6 @@
+from gendiff.engine.view_change import view_change
+
+
 def plain(diff_list, path=''):
     """ Describes file comparison in simple terms. """
     result = []
@@ -23,7 +26,7 @@ def get_view(value):
     """ Gives the value a clear, inline look. """
     if isinstance(value, dict):
         return '[complex value]'
+    if isinstance(value, str):
+        return f"'{value}'"
     else:
-        return str(value).lower() if isinstance(value, bool) else\
-            'null' if isinstance(value, type(None))else\
-            value if isinstance(value, int) else f"'{value}'"
+        return view_change(value)
