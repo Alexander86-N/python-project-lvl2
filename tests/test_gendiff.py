@@ -18,6 +18,7 @@ with open('tests/fixtures/result_plain.txt') as text:
 with open('tests/fixtures/result_json.txt') as text:
     result4 = text.read()
 
+
 def test_generate_diff():
     assert generate_diff(test_file1, test_file2) == result1[:-1]
     assert generate_diff(test_file3, test_file4) == result1[:-1]
