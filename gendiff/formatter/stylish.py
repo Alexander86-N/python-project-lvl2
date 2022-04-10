@@ -1,4 +1,4 @@
-from gendiff.engine.view_change import view_change
+from gendiff.engine.change_view import view_change, change_dictionary_view
 
 
 SYMBOLS = {"added": "+ ", "available": "- ", "parent": "  ", "same": "  "}
@@ -28,12 +28,7 @@ def stylish(diff_list, depth=0, indent='  '):
 def format_data(data, indent):
     """ Modifies each element of the incoming data ."""
     if isinstance(data, dict):
-        indent += '    '
-        result = '{\n'
-        for key in data.keys():
-            value = format_data(data[key], indent)
-            result += f'{indent}  {key}: {value}\n'
-        result += indent[:-2] + '}'
+        result = change_dictionary_view(data, indent)
     elif isinstance(data, str):
         result = str(data)
     else:
