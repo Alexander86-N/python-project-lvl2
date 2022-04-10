@@ -17,6 +17,9 @@ with open('tests/fixtures/result_stylish.txt') as text:
     result2 = text.read()
 with open('tests/fixtures/result_plain.txt') as text:
     result3 = text.read()
+with open('tests/fixtures/result_json.txt') as text:
+    result4 = text.read()
+
 def test_generate_diff():
     assert generate_diff.generate_diff(test_file1, test_file2) == result1[:-1]
     assert generate_diff.generate_diff(test_file3, test_file4) == result1[:-1]
@@ -26,6 +29,9 @@ def test_generate_diff():
     assert generate_diff.generate_diff(test_file5, test_file6, 'plain') == result3[:-1]
     assert generate_diff.generate_diff(test_file7, test_file8, 'plain') == result3[:-1]
     assert generate_diff.generate_diff(test_file5, test_file8, 'plain') == result3[:-1]
+    assert generate_diff.generate_diff(test_file5, test_file6, 'json') == result4[:-1]
+    assert generate_diff.generate_diff(test_file7, test_file8, 'json') == result4[:-1]
+    assert generate_diff.generate_diff(test_file5, test_file8, 'json') == result4[:-1]
 
 
 def test_determine_file_format():
