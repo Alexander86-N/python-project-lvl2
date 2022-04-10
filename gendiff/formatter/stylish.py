@@ -1,3 +1,6 @@
+from gendiff.engine.view_change import view_change
+
+
 SYMBOLS = {"added": "+ ", "available": "- ", "parent": "  ", "same": "  "}
 
 
@@ -31,7 +34,8 @@ def format_data(data, indent):
             value = format_data(data[key], indent)
             result += f'{indent}  {key}: {value}\n'
         result += indent[:-2] + '}'
+    elif isinstance(data, str):
+        result = str(data)
     else:
-        result = str(data).lower() if isinstance(data, bool) else\
-            'null' if isinstance(data, type(None)) else str(data)
+        result = view_change(data)
     return result
