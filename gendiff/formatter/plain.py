@@ -25,4 +25,5 @@ def get_view(value):
         return '[complex value]'
     else:
         return str(value).lower() if isinstance(value, bool) else\
-            'null' if isinstance(value, type(None)) else f"'{value}'"
+            'null' if isinstance(value, type(None))else\
+            value if isinstance(value, int) else f"'{value}'"
