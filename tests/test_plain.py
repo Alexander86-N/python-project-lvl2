@@ -9,6 +9,7 @@ test_case4 = [{'name': 'hello', 'status': 'parent', 'children': [\
         {'name': 'good', 'status': 'changed', 'value before': None,
             'value after': {'city': 'Kazan'}}]}]
 test_case5 = [{'name': 'hello', 'status': 'same', 'value': 5}]
+test_case6 = [{'name': 'hello', 'status': 'added', 'value': 0}]
 
 def test_plain():
     assert plain(test_case1) == "Property 'hello' was removed"
@@ -18,3 +19,4 @@ def test_plain():
     assert plain(test_case4) == "Property 'hello.good' was updated.\
  From null to [complex value]"
     assert plain(test_case5) == ""
+    assert plain(test_case6) == "Property 'hello' was added with value: 0"
