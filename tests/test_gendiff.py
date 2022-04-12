@@ -122,7 +122,7 @@ def test_format_data():
     assert stylish.format_data(test_case29, '  ') == ''
 
 
-test_file30 = "/home/golem86/python-project-lvl2/tests/fixtures/file1.json"
+test_file30 = "tests/fixtures/file1.json"
 test_file31 = "tests/fixtures/file1.yaml"
 test_file32 = "tests/fixtures/file2.yml"
 
