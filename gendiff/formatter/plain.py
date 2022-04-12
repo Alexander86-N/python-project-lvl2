@@ -1,28 +1,25 @@
-from gendiff.engine.change_view import view_change
+from gendiff.formatter.stylish import view_change
 
 
-def plain(diff_list, path=''):
+def plain(diff_list):
     """ Describes file comparison in simple terms. """
-    result = []
-    for node in diff_list:
-        if node['status'] == 'parent':
-            change_path = path + f"{node['name']}."
-            result.append(plain(node['children'], change_path))
-        elif node['status'] == 'changed':
-            change_path = path + node['name']
-            result.append(f"Property '{change_path}' was updated.\
- From {get_view(node['value before'])} to {get_view(node['value after'])}")
-        elif node['status'] == 'available':
-            change_path = path + node['name']
-            result.append(f"Property '{change_path}' was removed")
-        elif node['status'] == 'added':
-            change_path = path + node['name']
-            result.append(f"Property '{change_path}' was added with value:\
- {get_view(node['value'])}")
-    return '\n'.join(result)
+
+    def format(items, path=''):
+        result = []
+        for node in items:
+            if node['status'] == 'parent':
+                change_path = path + f"{node['name']}."
+                result.append(format(node['children'], change_path))
+            else:
+                change_path = path + node['name']
+                if node['status'] != 'same':
+                    result.append(output_generation(node, change_path))
+        return '\n'.join(result)
+
+    return format(diff_list)
 
 
-def get_view(value):
+def to_string(value):
     """ Gives the value a clear, inline look. """
     if isinstance(value, dict):
         return '[complex value]'
@@ -30,3 +27,16 @@ def get_view(value):
         return f"'{value}'"
     else:
         return view_change(value)
+
+
+def output_generation(items, path):
+    result = ''
+    if items['status'] == 'changed':
+        result = f"Property '{path}' was updated.\
+ From {to_string(items['value before'])} to {to_string(items['value after'])}"
+    if items['status'] == 'available':
+        result = f"Property '{path}' was removed"
+    if items['status'] == 'added':
+        result = f"Property '{path}' was added with value:\
+ {to_string(items['value'])}"
+    return result
