@@ -1,10 +1,8 @@
-import json
-import yaml
+import pytest
 from gendiff import generate_diff
 from gendiff.diff import diff
 from gendiff.formatter.plain import plain
 from gendiff.formatter import stylish
-from gendiff.file_extraction import parser_file
 
 
 test_file1 = "tests/fixtures/file1.json"
@@ -25,18 +23,21 @@ with open('tests/fixtures/result_json.txt') as text:
     result4 = text.read()
 
 
-def test_generate_diff():
-    assert generate_diff(test_file1, test_file2) == result1[:-1]
-    assert generate_diff(test_file3, test_file4) == result1[:-1]
-    assert generate_diff(test_file5, test_file6) == result2[:-1]
-    assert generate_diff(test_file7, test_file8) == result2[:-1]
-    assert generate_diff(test_file5, test_file8) == result2[:-1]
-    assert generate_diff(test_file5, test_file6, 'plain') == result3[:-1]
-    assert generate_diff(test_file7, test_file8, 'plain') == result3[:-1]
-    assert generate_diff(test_file5, test_file8, 'plain') == result3[:-1]
-    assert generate_diff(test_file5, test_file6, 'json') == result4[:-1]
-    assert generate_diff(test_file7, test_file8, 'json') == result4[:-1]
-    assert generate_diff(test_file5, test_file8, 'json') == result4[:-1]
+@pytest.mark.parametrize('filepath1, filepath2, format, result', [
+    (test_file1, test_file2, 'stylish', result1),
+    (test_file3, test_file4, 'stylish', result1),
+    (test_file5, test_file6, 'stylish', result2),
+    (test_file7, test_file8, 'stylish', result2),
+    (test_file5, test_file8, 'stylish', result2),
+    (test_file5, test_file6, 'plain', result3),
+    (test_file7, test_file8, 'plain', result3),
+    (test_file5, test_file8, 'plain', result3),
+    (test_file5, test_file6, 'json', result4),
+    (test_file7, test_file8, 'json', result4),
+    (test_file5, test_file8, 'json', result4)
+])
+def test_generate_diff(filepath1, filepath2, format, result):
+    assert generate_diff(filepath1, filepath2, format) == result[:-1]
 
 
 test_case9 = {'file': 1}
@@ -120,16 +121,3 @@ def test_format_data():
     assert stylish.format_data(test_case28, '  ') ==\
            '{\n        wolf: {\n            fox: true\n        }\n    }'
     assert stylish.format_data(test_case29, '  ') == ''
-
-
-test_file30 = "tests/fixtures/file1.json"
-test_file31 = "tests/fixtures/file1.yaml"
-test_file32 = "tests/fixtures/file2.yml"
-
-
-def test_parser_file():
-    assert parser_file(test_file30) == json.load(open(test_file1))
-    assert parser_file(test_file31) ==\
-           yaml.safe_load(open(test_file3))
-    assert parser_file(test_file32) ==\
-           yaml.safe_load(open(test_file4))
