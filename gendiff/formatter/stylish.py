@@ -9,16 +9,20 @@ def stylish(diff_list):
             indent += '    '
         for node in items:
             if node['status'] == 'parent':
-                result.append(f"{indent}{SYMBOLS.get(node['status'])}\
-{node['name']}: {format(node['children'], depth + 1)}")
+                symbol = SYMBOLS.get(node['status'])
+                children = format(node['children'], depth + 1)
+                result.append(f"{indent}{symbol}{node['name']}: {children}")
             elif node['status'] == 'changed':
-                result.append(f"{indent}{SYMBOLS['available']}{node['name']}:\
- {format_data(node['value before'], indent)}")
-                result.append(f"{indent}{SYMBOLS['added']}{node['name']}:\
- {format_data(node['value after'], indent)}")
+                symbol = SYMBOLS['available']
+                value = format_data(node['value before'], indent)
+                result.append(f"{indent}{symbol}{node['name']}: {value}")
+                symbol = SYMBOLS['added']
+                value = format_data(node['value after'], indent)
+                result.append(f"{indent}{symbol}{node['name']}: {value}")
             else:
-                result.append(f"{indent}{SYMBOLS.get(node['status'])}\
-{node['name']}: {format_data(node['value'], indent)}")
+                symbol = SYMBOLS.get(node['status'])
+                value = format_data(node['value'], indent)
+                result.append(f"{indent}{symbol}{node['name']}: {value}")
         result.append(indent[:-2] + '}')
         return '\n'.join(result)
     return format(diff_list)
@@ -31,11 +35,11 @@ def format_data(data, indent):
     elif isinstance(data, str):
         result = str(data)
     else:
-        result = view_change(data)
+        result = to_string(data)
     return result
 
 
-def view_change(value):
+def to_string(value):
     """ Outputs values in the specified form. """
     if isinstance(value, bool):
         return str(value).lower()
@@ -53,7 +57,11 @@ def change_dictionary_view(data, indent):
         if isinstance(data[key], dict):
             value = change_dictionary_view(data[key], indent)
         else:
-            value = view_change(data[key])
+            value = to_string(data[key])
         result += f'{indent}  {key}: {value}\n'
     result += indent[:-2] + '}'
     return result
+
+
+def format(data):
+    return stylish(data)
