@@ -1,7 +1,4 @@
-from gendiff.formatter.stylish import view_change
-
-
-def plain(diff_list):
+def plain(data):
     """ Describes file comparison in simple terms. """
 
     def format(items, path=''):
@@ -16,27 +13,37 @@ def plain(diff_list):
                     result.append(output_generation(node, change_path))
         return '\n'.join(result)
 
-    return format(diff_list)
+    return format(data)
 
 
 def to_string(value):
     """ Gives the value a clear, inline look. """
     if isinstance(value, dict):
         return '[complex value]'
-    if isinstance(value, str):
+    elif isinstance(value, str):
         return f"'{value}'"
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, type(None)):
+        return 'null'
     else:
-        return view_change(value)
+        return value
 
 
 def output_generation(items, path):
+    """ Generates lines of data for output. """
     result = ''
     if items['status'] == 'changed':
-        result = f"Property '{path}' was updated.\
- From {to_string(items['value before'])} to {to_string(items['value after'])}"
+        value1 = to_string(items['value before'])
+        value2 = to_string(items['value after'])
+        result = f"Property '{path}' was updated. From {value1} to {value2}"
     if items['status'] == 'available':
         result = f"Property '{path}' was removed"
     if items['status'] == 'added':
-        result = f"Property '{path}' was added with value:\
- {to_string(items['value'])}"
+        value = to_string(items['value'])
+        result = f"Property '{path}' was added with value: {value}"
     return result
+
+
+def format(data):
+    return plain(data)
