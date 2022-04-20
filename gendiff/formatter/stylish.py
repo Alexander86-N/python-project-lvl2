@@ -1,16 +1,17 @@
 SYMBOLS = {"added": "+ ", "available": "- ", "parent": "  ", "same": "  "}
 
 
-def stylish(diff_list):
+def format(data):
     """ Forms a text representation of the list. """
-    def format(items, depth=0, indent='  '):
+
+    def creating_form(items, depth=0, indent='  '):
         result = ['{']
         for i in range(depth):
             indent += '    '
         for node in items:
             if node['status'] == 'parent':
                 symbol = SYMBOLS.get(node['status'])
-                children = format(node['children'], depth + 1)
+                children = creating_form(node['children'], depth + 1)
                 result.append(f"{indent}{symbol}{node['name']}: {children}")
             elif node['status'] == 'changed':
                 symbol = SYMBOLS['available']
@@ -25,7 +26,8 @@ def stylish(diff_list):
                 result.append(f"{indent}{symbol}{node['name']}: {value}")
         result.append(indent[:-2] + '}')
         return '\n'.join(result)
-    return format(diff_list)
+
+    return creating_form(data)
 
 
 def format_data(data, indent):
@@ -61,7 +63,3 @@ def change_dictionary_view(data, indent):
         result += f'{indent}  {key}: {value}\n'
     result += indent[:-2] + '}'
     return result
-
-
-def format(data):
-    return stylish(data)
