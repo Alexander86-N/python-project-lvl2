@@ -1,19 +1,19 @@
-def plain(data):
+def format(data):
     """ Describes file comparison in simple terms. """
 
-    def format(items, path=''):
+    def creating_form(items, path=''):
         result = []
         for node in items:
             if node['status'] == 'parent':
                 change_path = path + f"{node['name']}."
-                result.append(format(node['children'], change_path))
+                result.append(creating_form(node['children'], change_path))
             else:
                 change_path = path + node['name']
                 if node['status'] != 'same':
                     result.append(output_generation(node, change_path))
         return '\n'.join(result)
 
-    return format(data)
+    return creating_form(data)
 
 
 def to_string(value):
@@ -43,7 +43,3 @@ def output_generation(items, path):
         value = to_string(items['value'])
         result = f"Property '{path}' was added with value: {value}"
     return result
-
-
-def format(data):
-    return plain(data)
