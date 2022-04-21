@@ -34,10 +34,10 @@ def test_generate_diff(filepath1, filepath2, format, result):
     assert generate_diff(filepath1, filepath2, format) == result[:-1]
 
 
-def test_generate_diff_json():
-    assert json.loads(generate_diff(test_file5, test_file6, 'json')) == \
-           result_json.result
-    assert json.loads(generate_diff(test_file7, test_file8, 'json')) == \
-           result_json.result
-    assert json.loads(generate_diff(test_file5, test_file8, 'json')) == \
-           result_json.result
+@pytest.mark.parametrize('file_path1, file_path2, format, result', [
+    (test_file5, test_file6, 'json', result_json.result),
+    (test_file7, test_file8, 'json', result_json.result),
+    (test_file5, test_file8, 'json', result_json.result)
+])
+def test_generate_diff_json(file_path1, file_path2, format, result):
+    assert json.loads(generate_diff(file_path1, file_path2, format)) == result
