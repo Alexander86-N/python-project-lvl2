@@ -18,16 +18,18 @@ def format(data):
 
 def to_string(value):
     """ Gives the value a clear, inline look. """
+    result = ''
     if isinstance(value, dict):
-        return '[complex value]'
+        result = '[complex value]'
     elif isinstance(value, str):
-        return f"'{value}'"
+        result = f"'{value}'"
     elif isinstance(value, bool):
-        return str(value).lower()
+        result = str(value).lower()
     elif isinstance(value, type(None)):
-        return 'null'
+        result = 'null'
     else:
-        return value
+        result = value
+    return result
 
 
 def output_generation(items, path):
